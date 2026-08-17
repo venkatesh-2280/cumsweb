@@ -1,0 +1,241 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";    
+}
+<!DOCTYPE html>
+<html>   
+<head>    
+    <meta name="viewport" content="width=device-width" />
+    <title>Dividend Process</title>       
+
+    <style>
+        /* White rows */
+        /* Alternate rows – Blue */
+        #dividendProcessGrid .k-grid-content tr.k-alt td {
+            background-color: #5997bb !important;
+            color: #ffffff;
+        }
+
+        /* Normal rows – White */
+        /* #dividendGrid .k-grid-content tr td {
+            background-color: #ffffff;
+        }      */
+
+        /* Cell borders */
+        #dividendProcessGrid td {
+            border: 1px solid #cfd8dc;
+        }
+
+        /* Compact row height */
+        #dividendProcessGrid .k-grid-content td {
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        /* Fixed layout */
+        #dividendProcessGrid .k-grid-header table,
+        #dividendProcessGrid .k-grid-content table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        /* Prevent wrapping */
+        #dividendProcessGrid .k-grid-header th,
+        #dividendProcessGrid .k-grid-content td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #dividendProcessGrid .k-grid-content td {
+            padding-top: 2px;
+            padding-bottom: 2px;
+            line-height: 18px;
+            font-size:13px;
+        }
+
+        #dividendProcessGrid .k-grid-header th {
+            padding-top: 4px;
+            padding-bottom: 4px;
+            line-height: 18px;
+            font-size: 13px;
+        }
+
+        .disabled-ui {
+            pointer-events: none;
+            opacity: 0.4;
+            filter: grayscale(100%);
+            cursor: not-allowed;
+        }
+
+    </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini fixed">
+    <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="card-body">
+                <form id="formAccountSettings" method="POST" onsubmit="return false">
+                    <div class="row" id="listSection">
+                        <div class="col-sm-12">                           
+                            @* <a href="../Registration/Registration"><img id="plusIcon" style="width:15px; height:15px;margin-bottom:12px;cursor:pointer;float:right;" src="~/Assets/images/toplist.png" /></a> *@
+                            <div id="dividendProcessGrid"></div>
+                        </div>
+                    </div>
+
+                    <div id="NewSection" style="display:none;">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <img id="listIcon1" style="width:16px; height:16px;margin-bottom:12px;float:right;cursor:pointer" src="~/Assets/images/toplist.png" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label class="form-label" for="isin">Dividend Name</label>
+                                <input type="text" class="form-control" id="dname" disabled />
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="isin">Dividend A/C No</label>
+                                <input type="text" class="form-control" id="dacno" disabled />
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="isin">Demat Benpos Date NSDL</label>
+                                <input type="text" class="form-control" id="dbnsdl" disabled />
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="isin">Demat Benpos Date CDSL</label>
+                                <input type="text" class="form-control" id="dbcdsl" disabled />
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-sm-3">
+                                <label class="form-label" for="isin">Physical Live Master</label>
+                                <input type="text" class="form-control" id="plm" disabled />
+                            </div>
+                             <div class="col-sm-3">
+                                <label class="form-label" for="isin">Pan Master</label>
+                                <select class="form-control" id="panmaster">
+                                    <option value="">--- Select --- </option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>                                  
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="isin">Pan Master Updated</label>
+                                <select class="form-control" id="panmasterupdated">
+                                    <option value="">--- Select --- </option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <center>
+                                    <button type="button" id="procdvd" class="btn btn-sm btn-primary me-2 disabled-ui" style="margin-top:30px;width:83%;">Process Dividend</button>
+                                    <a href="javascript:void(0)" id="downloadBtn" class="dwd-btn disabled-ui" title="Download">
+                                        <i class="fa fa-download"
+                                           style="color:green; font-size:20px; position:relative; top:15px;"></i>
+                                    </a>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-sm-3">
+                                <label for="formFile" class="form-label">Bank Master Upload</label>
+                                <input class="form-control" type="file" id="formFile">
+                            </div>
+                            <div class="col-sm-3">
+                                <center><button type="button" id="btnSubmit" class="btn btn-sm btn-primary me-2" style="width:65%;margin-top:30px;">Submit</button></center>
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+             </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+   $( document ).ready(function() {
+          $('#navhead').text('Dividend Process');
+           $('#listIcon1').on('click', function () {
+              $('#listSection').show();
+              $('#NewSection').hide();
+          });
+             $('#btnSubmit').on('click', function () {
+               $('#listSection').show();
+               $('#NewSection').hide();
+           });        
+             $("#dividendProcessGrid").kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: {
+                             url: "@Url.Action("GetDividendProcessList", "DividendProcess")",
+                            dataType: "json"
+                        }
+                    },
+                    pageSize: 10
+                },
+                 pageable: true,
+                 sortable: true,
+                 scrollable: true,
+                 filterable: true,
+                columns: [
+                           {
+                          title: "Action",
+                          width: 120,
+                          template:
+                                 `<div class='action-buttons' style='text-align:center'>
+                                      <a href='javascript:void(0)' class='edit-btn' title='Edit'><i class='fa fa-edit' style='color:green; font-size:12px;margin: 0 5px;' onclick='editdetails($(this))' ></i></a>                                     
+                                  </div>`,
+                      },
+                        { field: "dividendName", title: "Dividend Name" },
+                        { field: "dividendAcNo", title: "Dividend A/C No" },
+                        { field: "dematBenposNSDL", title: "Demat Benpos NSDL" ,template: "#= kendo.toString(kendo.parseDate(dematBenposNSDL), 'dd-MM-yyyy') #",},
+                        { field: "dematBenposCDSL", title: "Demat Benpos CDSL" , template: "#= kendo.toString(kendo.parseDate(dematBenposCDSL), 'dd-MM-yyyy') #",},
+                        { field: "physicalMaster", title: "Physical Master" , template: "#= kendo.toString(kendo.parseDate(physicalMaster), 'dd-MM-yyyy') #",},
+                        { field: "panMaster", title: "Pan Master" },
+                        { field: "panMasterUpdate", title: "Pan Master Update" }
+                ]
+            });
+    });
+
+        function updateProcessUI() {
+        var pan = $("#panmaster").val()?.toLowerCase();
+        var panUpd = $("#panmasterupdated").val()?.toLowerCase();
+
+        if (pan === "yes" && panUpd === "yes") {
+            $("#procdvd").removeClass("disabled-ui");
+        } else {
+            $("#procdvd").addClass("disabled-ui");
+            $("#downloadBtn").addClass("disabled-ui"); // always reset
+        }
+    }
+
+
+       function editdetails(e) {
+                 $('#listSection').hide();
+                 $('#NewSection').show();
+                   var getGrid = $("#dividendProcessGrid").data("kendoGrid");
+                  var row = e.closest("tr");
+                  var rowData = getGrid.dataItem(row);
+                  $("#dname").val(rowData.dividendName);
+                  $("#dacno").val(rowData.dividendAcNo);
+                  $("#dbnsdl").val(kendo.toString(kendo.parseDate(rowData.dematBenposNSDL), "dd-MM-yyyy"));
+                  $("#dbcdsl").val(kendo.toString(kendo.parseDate(rowData.dematBenposCDSL), "dd-MM-yyyy"));
+                  $("#plm").val(kendo.toString(kendo.parseDate(rowData.physicalMaster), "dd-MM-yyyy"));
+                  $("#panmaster").val(rowData.panMaster);
+                  $("#panmasterupdated").val(rowData.panMasterUpdate);
+                   updateProcessUI();
+          }          
+        
+    
+
+     $("#procdvd").click(function () {
+         if ($(this).hasClass("disabled-ui")) return;
+         $("#downloadBtn").removeClass("disabled-ui");
+     });
+</script>

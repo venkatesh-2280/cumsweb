@@ -1,0 +1,182 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";    
+}
+<!DOCTYPE html>
+<html>   
+<head>    
+    <meta name="viewport" content="width=device-width" />
+    <title>Master</title>       
+
+    <style>
+        /* White rows */
+        /* Alternate rows – Blue */
+        #masterGrid .k-grid-content tr.k-alt td {
+            background-color: #5997bb !important;
+            color: #ffffff;
+        }
+
+        /* Normal rows – White */
+        /* #dividendGrid .k-grid-content tr td {
+            background-color: #ffffff;
+        }      */
+
+        /* Cell borders */
+        #masterGrid td {
+            border: 1px solid #cfd8dc;
+        }
+
+        /* Compact row height */
+        #masterGrid .k-grid-content td {
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        /* Fixed layout */
+        #masterGrid .k-grid-header table,
+        #masterGrid .k-grid-content table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        /* Prevent wrapping */
+        #masterGrid .k-grid-header th,
+        #masterGrid .k-grid-content td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #masterGrid .k-grid-content td {
+            padding-top: 2px;
+            padding-bottom: 2px;
+            line-height: 18px;
+            font-size:13px;
+        }
+
+        #masterGrid .k-grid-header th {
+            padding-top: 4px;
+            padding-bottom: 4px;
+            line-height: 18px;
+            font-size: 13px;
+        }
+
+
+    </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini fixed">
+    <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="card-body">
+                <form id="formAccountSettings" method="POST" onsubmit="return false">
+                    <div class="row" id="listSection">
+                        <div class="col-sm-12">
+                            <img id="plusIcon" style="width:11px; height:11px;margin-bottom:12px;cursor:pointer" src="~/Assets/images/plus.png" />
+                            @* <a href="../Registration/Registration"><img id="plusIcon" style="width:15px; height:15px;margin-bottom:12px;cursor:pointer;float:right;" src="~/Assets/images/toplist.png" /></a> *@
+                            <div id="masterGrid"></div>
+                        </div>
+                    </div>
+
+                    <div id="NewSection" style="display:none;">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <img id="listIcon1" style="width:16px; height:16px;margin-bottom:12px;float:right;cursor:pointer" src="~/Assets/images/toplist.png" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label class="form-label" for="isin">Code</label>
+                                <input type="text" class="form-control" id="code" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="isin">Name</label>
+                                <input type="text" class="form-control" id="mname" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="isin">Dependent Value</label>
+                                <input type="text" class="form-control" id="depvalue" />
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-primary" id="DetailsSave" style="padding: 3px 25px;margin-top:28px;">Save</button>
+                            </div>
+                        </div>                    
+                    </div>
+                </form>
+             </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+   $( document ).ready(function() {
+          $('#navhead').text('Dividend Master');
+                      $("#masterGrid").kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "@Url.Action("GetMasterList", "Master")",
+                            dataType: "json"
+                        }
+                    },
+                    pageSize: 10
+                },
+                pageable: true,
+                sortable: true,
+                scrollable: true,
+                columns: [
+                      {
+                        title: "Action",
+                        width: 120,
+                        template:
+                               `<div class='action-buttons' style='text-align:center'>
+                                    <a href='javascript:void(0)' class='edit-btn' title='Edit'><i class='fa fa-edit' style='color:green; font-size:12px;margin: 0 5px;' onclick='editmasterdetails($(this))' ></i></a>
+                                    <a href='javascript:void(0)' class='del-btn' title='Edit'><i class='fa fa-trash' style='color:red; font-size:12px;margin: 0 5px;' onclick='editcorpdetails($(this))' ></i></a>
+                                </div>`,
+                    },
+                    { field: "code", title: "Code", width: 300 },
+                    { field: "name", title: "Name", width: 120 },
+                    { field: "depvalue", title: "Dependent Value", width: 200 }
+                ]
+            });
+    });
+    function setISIN() {
+        var isin = document.getElementById("company").value;
+        document.getElementById("isin").value = isin;
+    }
+     function calculateDividend() {
+    const rate = document.getElementById("drate").value;
+    const faceValue = document.getElementById("faceValue").value;
+
+    if (rate && faceValue) {
+        const dividend = (rate * faceValue) / 100;
+        document.getElementById("dividendPerShare").value = dividend;
+    } else {
+        document.getElementById("dividendPerShare").value = "";
+    }
+}
+       
+    $('#plusIcon').on('click', function () {
+                 $('#listSection').hide();
+                 $('#NewSection').show();
+                 $("#code").val("");
+                 $("#mname").val("");
+                 $("#depvalue").val("");                 
+         });
+     $('#listIcon1').on('click', function () {
+                 $('#listSection').show();
+                 $('#NewSection').hide();
+      });
+          function editmasterdetails(e) {
+               $('#listSection').hide();
+               $('#NewSection').show();
+                var getGrid = $("#masterGrid").data("kendoGrid");
+                var row = e.closest("tr");
+                var rowData = getGrid.dataItem(row);
+                    $("#code").val(rowData.code);
+                    $("#mname").val(rowData.name);
+                    $("#depvalue").val(rowData.depvalue);               
+               }
+</script>

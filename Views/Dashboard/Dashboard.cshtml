@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+ 
+<!DOCTYPE html>
+<html>  
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Dashboard</title>
+    <style>
+        .content-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini fixed">
+    <div class="content-wrapper d-flex justify-content-center align-items-center" style="min-height:100vh;">
+        <p style="font-size:24px;font-weight:600;margin-top:3px;">Dashboard Page</p>
+    </div>
+</body>
+
+</html>
+<script>
+     $( document ).ready(function() {
+          $('#navhead').text('Dashboard');
+    });
+</script>

@@ -1,0 +1,151 @@
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\appsettings.Development.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\appsettings.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\STAWeb.staticwebassets.runtime.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\STAWeb.staticwebassets.endpoints.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\STAWeb.exe
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\STAWeb.deps.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\STAWeb.runtimeconfig.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\STAWeb.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\STAWeb.pdb
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\BouncyCastle.Crypto.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\ClosedXML.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\ClosedXML.Extensions.Mvc.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\ClosedXML.Parser.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\DocumentFormat.OpenXml.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\DocumentFormat.OpenXml.Framework.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\ExcelNumberFormat.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\FluentValidation.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\FluentValidation.AspNetCore.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\FluentValidation.DependencyInjectionExtensions.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\itextsharp.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\System.Web.Razor.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\System.Web.Helpers.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\System.Web.WebPages.Deployment.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\System.Web.WebPages.Razor.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\System.Web.WebPages.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\Microsoft.Web.Infrastructure.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\Newtonsoft.Json.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\RBush.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\SixLabors.Fonts.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\System.IO.Packaging.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.csproj.AssemblyReference.cache
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\rpswa.dswa.cache.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.GeneratedMSBuildEditorConfig.editorconfig
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.AssemblyInfoInputs.cache
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.AssemblyInfo.cs
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.csproj.CoreCompileInputs.cache
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.MvcApplicationPartsAssemblyInfo.cs
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.MvcApplicationPartsAssemblyInfo.cache
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.RazorAssemblyInfo.cache
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.RazorAssemblyInfo.cs
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.sourcelink.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\rjimswa.dswa.cache.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\rjsmrazor.dswa.cache.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\rjsmcshtml.dswa.cache.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\scopedcss\bundle\STAWeb.styles.css
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\scopedcss\projectbundle\STAWeb.bundle.scp.css
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\staticwebassets.build.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\staticwebassets.build.json.cache
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\staticwebassets.development.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\staticwebassets.build.endpoints.json
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\swae.build.ex.cache
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\staticwebassets.upToDateCheck.txt
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.csproj.Up2Date
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\refint\STAWeb.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.pdb
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\STAWeb.genruntimeconfig.cache
+F:\SDA\STAWeb_05-02-2026\STAWeb\obj\Release\net8.0\ref\STAWeb.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\BouncyCastle.Cryptography.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\Google.Protobuf.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\K4os.Compression.LZ4.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\K4os.Compression.LZ4.Streams.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\K4os.Hash.xxHash.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\MySql.Data.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\System.Configuration.ConfigurationManager.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\System.Security.Cryptography.ProtectedData.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\System.Security.Permissions.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\System.Windows.Extensions.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\ZstdSharp.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\runtimes\win-x64\native\comerr64.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\runtimes\win-x64\native\gssapi64.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\runtimes\win-x64\native\k5sprt64.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\runtimes\win-x64\native\krb5_64.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\runtimes\win-x64\native\krbcc64.dll
+F:\SDA\STAWeb_05-02-2026\STAWeb\bin\Release\net8.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\appsettings.Development.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\appsettings.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\STAWeb.staticwebassets.runtime.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\STAWeb.staticwebassets.endpoints.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\STAWeb.exe
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\STAWeb.deps.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\STAWeb.runtimeconfig.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\STAWeb.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\STAWeb.pdb
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\BouncyCastle.Crypto.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\BouncyCastle.Cryptography.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\ClosedXML.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\ClosedXML.Extensions.Mvc.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\ClosedXML.Parser.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\DocumentFormat.OpenXml.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\DocumentFormat.OpenXml.Framework.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\ExcelNumberFormat.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\FluentValidation.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\FluentValidation.AspNetCore.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\FluentValidation.DependencyInjectionExtensions.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\Google.Protobuf.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\itextsharp.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\K4os.Compression.LZ4.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\K4os.Compression.LZ4.Streams.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\K4os.Hash.xxHash.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\System.Web.Razor.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\System.Web.Helpers.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\System.Web.WebPages.Deployment.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\System.Web.WebPages.Razor.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\System.Web.WebPages.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\Microsoft.Web.Infrastructure.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\MySql.Data.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\Newtonsoft.Json.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\RBush.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\SixLabors.Fonts.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\System.Configuration.ConfigurationManager.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\System.IO.Packaging.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\System.Security.Cryptography.ProtectedData.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\System.Security.Permissions.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\System.Windows.Extensions.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\ZstdSharp.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\runtimes\win-x64\native\comerr64.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\runtimes\win-x64\native\gssapi64.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\runtimes\win-x64\native\k5sprt64.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\runtimes\win-x64\native\krb5_64.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\runtimes\win-x64\native\krbcc64.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\bin\Release\net8.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.csproj.AssemblyReference.cache
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\rpswa.dswa.cache.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.GeneratedMSBuildEditorConfig.editorconfig
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.AssemblyInfoInputs.cache
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.AssemblyInfo.cs
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.csproj.CoreCompileInputs.cache
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.MvcApplicationPartsAssemblyInfo.cs
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.MvcApplicationPartsAssemblyInfo.cache
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.RazorAssemblyInfo.cache
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.RazorAssemblyInfo.cs
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.sourcelink.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\rjimswa.dswa.cache.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\rjsmrazor.dswa.cache.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\rjsmcshtml.dswa.cache.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\scopedcss\bundle\STAWeb.styles.css
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\scopedcss\projectbundle\STAWeb.bundle.scp.css
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\staticwebassets.build.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\staticwebassets.build.json.cache
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\staticwebassets.development.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\staticwebassets.build.endpoints.json
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\staticwebassets.upToDateCheck.txt
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.csproj.Up2Date
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\refint\STAWeb.dll
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.pdb
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\STAWeb.genruntimeconfig.cache
+E:\Venki Shared Project\Pandiaraj\IPO_CUMS\CUMS_Web\STAWeb\obj\Release\net8.0\ref\STAWeb.dll

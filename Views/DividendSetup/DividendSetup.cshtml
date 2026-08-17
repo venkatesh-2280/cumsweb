@@ -1,0 +1,626 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";    
+    var userName = Context.Session.GetString("user_name");
+}
+<!DOCTYPE html>
+<html>   
+<head>    
+    <meta name="viewport" content="width=device-width" />
+    <title>Dividend Master</title>       
+    <!-- jQuery (only once, already included with Kendo usually) -->
+    <script src="~/Scripts/jquery.min.js"></script>
+
+    <!-- Kendo UI -->
+    <script src="~/Scripts/kendo.all.min.js"></script>
+    <link href="~/Content/kendo.default.min.css" rel="stylesheet" />
+
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <style>
+        /* White rows */
+        /* Alternate rows – Blue */
+        #dividendGrid .k-grid-content tr.k-alt td {
+            background-color: #5997bb !important;
+            color: #ffffff;
+        }
+
+        /* Normal rows – White */
+        /* #dividendGrid .k-grid-content tr td {
+            background-color: #ffffff;
+        }      */
+
+        /* Cell borders */
+        #dividendGrid td {
+            border: 1px solid #cfd8dc;
+        }
+
+        /* Compact row height */
+        #dividendGrid .k-grid-content td {
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        /* Fixed layout */
+        #dividendGrid .k-grid-header table,
+        #dividendGrid .k-grid-content table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        /* Prevent wrapping */
+        #dividendGrid .k-grid-header th,
+        #dividendGrid .k-grid-content td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #dividendGrid .k-grid-content td {
+            padding-top: 4px;
+            padding-bottom: 4px;
+            line-height: 18px;
+            font-size:13px;
+        }
+
+        #dividendGrid .k-grid-header th {
+            padding-top: 4px;
+            padding-bottom: 4px;
+            line-height: 18px;
+            font-size: 13px;
+        }
+
+        #dividendGrid .k-grid-content {
+            height:287px !important;
+        }
+
+    </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini fixed">
+    <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="card-body">
+                <form id="formAccountSettings" method="POST" onsubmit="return false">
+                    <div class="row" id="listSection">
+                        <div class="col-sm-12">
+                            <img id="plusIcon" style="width:11px; height:11px;margin-bottom:12px;cursor:pointer" src="~/Assets/images/plus.png" />
+                            @* <a href="../Registration/Registration"><img id="plusIcon" style="width:15px; height:15px;margin-bottom:12px;cursor:pointer;float:right;" src="~/Assets/images/toplist.png" /></a> *@
+                            <div id="dividendGrid"></div>
+                        </div>
+                    </div>
+
+                    <div id="NewSection" style="display:none;">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <img id="listIcon1" style="width:16px; height:16px;margin-bottom:12px;float:right;cursor:pointer" src="~/Assets/images/toplist.png" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input hidden type="number" id="dividend_gid" value="0" class="form-control" />
+                                <label class="form-label" for="cname">Company Name</label>&nbsp;<span style="font-size: 12px;color: red;font-weight: bold;">*</span>
+                                <select class="form-control" id="company" onchange="setISIN()">
+                                </select>
+                                <span id="queryCompany" style="color: red; font-size: 12px;position:relative;"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="isin">ISIN</label>
+                                <input type="text" class="form-control" id="isin" disabled />
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="dyear">RBI Code</label>
+                                <input type="text" id="rbicode" class="form-control" readonly />
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="dyear">Dividend Year</label>
+                                <input type="text" id="dyear" class="form-control" readonly/>                                
+                            </div>                           
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-sm-3">
+                                <label class="form-label" for="remarks">Dividend Type</label>&nbsp;<span style="font-size: 12px;color: red;font-weight: bold;">*</span>
+                                <select id="divdtype" class="form-control">
+                                    <option value="">--- Select --- </option>
+                                    <option value="Interim 1">Interim 1</option>
+                                    <option value="Interim 2">Interim 2</option>
+                                    <option value="Interim 3">Interim 3</option>
+                                    <option value="Final">Final</option>
+                                </select>
+                                <span id="querydivdtype" style="color: red; font-size: 12px;position:relative;"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="remarks">Remarks / Description</label>&nbsp;<span style="font-size: 12px;color: red;font-weight: bold;">*</span>
+                                <input type="text" id="remarks" class="form-control" />
+                                <span id="queryremarks" style="color: red; font-size: 12px;position:relative;"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="drate">Dividend Rate (%)</label>&nbsp;<span style="font-size: 12px;color: red;font-weight: bold;">*</span>
+                                <input type="number" class="form-control" min="1" id="drate" placeholder="Enter %" oninput="calculateDividend()" />
+                                <span id="querydivdrate" style="color: red; font-size: 12px;position:relative;"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="remarks">Face Value</label>
+                                <input type="text" class="form-control" id="faceValue" readonly />
+                            </div>                                                      
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-sm-3">
+                                <label class="form-label" for="remarks">Dividend Per Share</label>
+                                <input type="text" class="form-control" id="dividendPerShare" readonly />
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="cname">Bank Name</label>&nbsp;<span style="font-size: 12px;color: red;font-weight: bold;">*</span>
+                                <select class="form-control" id="bank" onchange="setIFSC()">
+                                    <option value="">--- Select ----</option>
+                                    <option value="HDFC Bank" data-ifsc="HDFC0000128">HDFC Bank</option>
+                                    <option value="ICICI Bank" data-ifsc="ICIC0000077">ICICI Bank</option>
+                                    <option value="Axis Bank" data-ifsc="UTIB0000006">Axis Bank</option>
+                                </select>
+                                <span id="querybank" style="color: red; font-size: 12px;position:relative;"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="remarks">IFSC Code</label>
+                                <input type="text" id="ifsc" class="form-control" readonly />
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="remarks">Dividend Account No</label>&nbsp;<span style="font-size: 12px;color: red;font-weight: bold;">*</span>
+                                <input type="text" id="divacno" class="form-control" />
+                                <span id="querydivacno" style="color: red; font-size: 12px;position:relative;"></span>
+                            </div>                                                   
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-sm-3">
+                                <label class="form-label" for="dyear">Dividend Cutoff Date</label>&nbsp;<span style="font-size: 12px;color: red;font-weight: bold;">*</span>
+                                <input type="date" id="cutoffdate" class="form-control" />
+                                <span id="querycutoffdate" style="color: red; font-size: 12px;position:relative;"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="form-label" for="dyear">Dividend Payment Date</label>&nbsp;<span style="font-size: 12px;color: red;font-weight: bold;">*</span>
+                                <input type="date" id="paymentdate" class="form-control" />
+                                <span id="querypaymentdate" style="color: red; font-size: 12px;position:relative;"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <center><button type="button" class="btn btn-primary" onclick="dividendsave()" style="padding: 3px 25px;margin-top:28px;">Save</button></center>
+                            </div>                           
+                        </div>
+                    </div>
+                </form>
+             </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+   $( document ).ready(function() {
+          $('#navhead').text('Dividend Setup');
+
+           showgrid();
+          const currentYear = new Date().getFullYear();
+          const previousYear = currentYear - 1;
+          document.getElementById("dyear").value =   `${previousYear} - ${currentYear}`;             
+    });
+
+    function showgrid() {
+               var mymodel = {              
+                dividendgid: 0,                     
+                action: "A"
+            };
+            $.ajax({
+                type: "POST",
+                 url: '@Url.Action("DividendList", "DividendSetup")',                
+                 data: JSON.stringify(mymodel),
+                 dataType: "json",
+                 contentType: 'application/json; charset=utf-8',
+                 success: function (data) {
+                 console.log("Responses:", data);
+                     let columns = [
+                        {
+                            field: "action",
+                            title: "Action",
+                                    template: '<center><img src="../Assets/images/editicons.png" name="Edit" id="Edit" value="Edit" onclick="editGrid(this);" style="height:12px;width:12px;cursor:pointer;">&nbsp;&nbsp;&nbsp;&nbsp;<img src="../Assets/images/del.png" name="delete" id="delete" value="Edit" onclick="deleteGrid(this);" style="height:12px;width:12px;cursor:pointer;"></center>',
+                            filterable: false,
+                            sortable: false,
+                            width: 100
+                        },
+                         {
+                             field: "dividendgid",
+                             title: "ID",
+                             hidden: true
+                         },
+                         {
+                             field: "company_name",
+                             title: "Company Name"
+                         },
+                         {
+                             field: "isin",
+                             title: "ISIN"
+                         },
+                         {
+                             field: "rbicode",
+                             title: "RBI Code"
+                         },
+                         {
+                                field: "dividend_year",
+                                title: "Dividend Year"
+                         },
+                         {
+                                field: "dividend_type",
+                                 title: "Dividend Type"
+                         },
+                        {
+                                field: "remarks",
+                                title: "Remarks"
+                        },
+                         {
+                               field: "dividend_rate",
+                                title: "Dividend Rate",
+                                format: "{0:n2}"
+                        },
+                        {
+                               field: "face_value",
+                                title: "Face Value"
+                        },
+                        {
+                                field: "dividend_per_share",
+                                title: "Dividend Per Share",
+                                format: "{0:n2}"
+                        },
+                            {
+                                field: "bank_name",
+                                title: "Bank Name"
+                        },
+                        {
+                                field: "ifsc_code",
+                                title: "IFSC Code"
+                        },
+                        {
+                                field: "dividend_account_no",
+                                title: "Dividend Accoun tNo"
+                        },
+                        {
+                                field: "dividend_cutoff_date",
+                                title: "Cutoff Date"
+                        },
+                        {
+                               field: "dividend_payment_date",
+                                title: "Payment Date"
+                        }
+                        
+                     ];
+                     $('#dividendGrid').append('<div id="example" class="table-responsive text-nowrap" id="chk1"><table id="grid" data-bind="source: gridRows" class="table table-sm" style="width:100%;height: 358px;line-height:1em;font-size:12px;border-bottom: 1px solid #e1e1e1;"></table></div>');
+                     var gridData = JSON.parse(data._data);
+                     $("#grid").kendoGrid({
+                         dataSource: {
+                         data: gridData,
+                             pageSize: 10
+                         },
+                         height: 358,
+                         pageable: {
+                             pageSizes: [10, 20, 30],
+                             refresh: true
+                         },
+                         sortable: true,
+                         filterable: true,
+                         resizable: true,
+                         columns: columns,
+                             dataBound: function () {
+                                var grid = this;
+                                grid.columns.forEach(function (col, index) {
+                                    grid.autoFitColumn(index);
+                                });
+                            }
+                     });
+                 },
+                 error: function (xhr) {
+                     console.log("Error: ", xhr.responseText);
+                 }
+             });
+    }
+
+     function loadCompany(selectedCompanyName) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("CompDetails", "DividendSetup")',
+            contentType: "application/json",
+            success: function (response) {
+
+                var result = JSON.parse(response.data);
+
+                $("#company").empty();
+                $("#company").append('<option value="">--- Select Company ---</option>');
+
+                $.each(result.Table, function (index, item) {
+
+                        $("#company").append(
+                                '<option value="' + item.comp_name + '" ' +
+                                'data-isin="' + item.isin_id + '" ' +
+                                'data-face="' + item.paid_up_value + '">' +
+                                    item.comp_name +
+                                '</option>'
+                            );
+
+                });
+
+                // ✅ After dropdown loaded, bind selected value
+                if (selectedCompanyName) {
+                    $("#company").val(selectedCompanyName).trigger("change");
+                }
+            }
+        });
+    }
+
+
+        function setISIN() {
+            var selectedISIN = $("#company option:selected").data("isin");
+            var selectedFaceValue = $("#company option:selected").data("face");
+            $("#isin").val(selectedISIN);
+            $("#faceValue").val(selectedFaceValue);
+    }
+
+   
+    function setIFSC() {
+        var selectedOption = $("#bank option:selected");
+        var bank = selectedOption.val();          // Bank Name
+        var ifscCode = selectedOption.data("ifsc");
+        $("#ifsc").val(ifscCode);
+    }
+
+     function calculateDividend() {
+    const rate = document.getElementById("drate").value;
+    const faceValue = document.getElementById("faceValue").value;
+
+    if (rate && faceValue) {
+        const dividend = (rate * faceValue) / 100;
+        document.getElementById("dividendPerShare").value = dividend;
+    } else {
+        document.getElementById("dividendPerShare").value = "";
+    }
+}
+       
+    $('#plusIcon').on('click', function () {
+                 loadCompany();
+                 $('#listSection').hide();
+                 $('#NewSection').show();
+                 $("#company").val("");
+                 $("#isin").val("");                
+                 $("#remarks").val("");
+                 $("#divdtype").val("");
+                 $("#bank").val("");
+                 $("#ifsc").val("");
+                 $("#drate").val("");
+                 $("#dividendPerShare").val("");
+                 $("#divacno").val("");
+                 $("#cutoffdate").val("");
+                 $("#paymentdate").val("");
+                 const currentYear = new Date().getFullYear();
+                 const previousYear = currentYear - 1;
+                 document.getElementById("dyear").value =   `${previousYear} - ${currentYear}`;
+         });
+     $('#listIcon1').on('click', function () {
+                 $('#listSection').show();
+                 $('#NewSection').hide();
+      });            
+
+        function dividendsave () {               
+                var isValid = true;
+                var dividend_gid = $("#dividend_gid").val();
+                var company = $("#company").val();
+                var isin = $("#isin").val();
+                var rbicode = $("#rbicode").val();
+                var dyear = $("#dyear").val();
+                var divdtype = $("#divdtype").val();
+                var remarks = $("#remarks").val();
+                var drate = $("#drate").val();
+                var faceValue = $("#faceValue").val();
+                var dividendPerShare = $("#dividendPerShare").val();
+                var bank = $("#bank").val();
+                var ifsc = $("#ifsc").val();
+                var divacno = $("#divacno").val();
+                var cutoffdate = $("#cutoffdate").val();
+                var paymentdate = $("#paymentdate").val();
+
+                if(company === "") {
+                     $("#queryCompany").text("Please Select Company");                     
+                      isValid = false;
+                } else {
+                        $("#queryCompany").text("");
+                }
+
+                if(divdtype === "") {
+                        $("#querydivdtype").text("Please Select Dividend Type");
+                    isValid = false;
+                } else {
+                       $("#querydivdtype").text("");
+                }
+
+                if(remarks === "") {
+                        $("#queryremarks").text("Please Enter Remarks");
+                    isValid = false;
+                } else {
+                        $("#queryremarks").text("");
+                }
+
+                if(drate === "") {
+                $("#querydivdrate").text("Please Enter Dividend Rate");
+                isValid = false;
+                }
+                else if(Number(drate) <= 0) {
+                    $("#querydivdrate").text("Please Enter Value Greater Than 0");
+                    isValid = false;
+                }
+                else {
+                    $("#querydivdrate").text("");
+                }
+
+                if(bank === "") {
+                    $("#querybank").text("Please Select Bank");
+                    isValid = false;
+                } else {
+                     $("#querybank").text("");
+                }
+
+                if(divacno === "") {
+                    $("#querydivacno").text("Please Enter Divdend. A/C No");
+                    isValid = false;
+                } else {
+                     $("#querydivacno").text("");
+                }
+
+                if(cutoffdate === "") {
+                        $("#querycutoffdate").text("Please Select Cutoff Date");
+                    isValid = false;
+                } else {
+                        $("#querycutoffdate").text("");
+                }
+
+                if(paymentdate === "") {
+                      $("#querypaymentdate").text("Please Select Payment Date");
+                    isValid = false;
+                } else {
+                      $("#querypaymentdate").text("");
+                }
+
+                if(isValid) {
+                var mymodel = {
+                            dividendgid:dividend_gid,
+                            companyName:company,
+                            isin:isin,
+                            rbicode:rbicode,
+                           dividendYear:dyear,
+                           dividendType:divdtype,
+                           remarks:remarks,
+                           dividendRate:drate,
+                           faceValue:faceValue,
+                           dividendPerShare:dividendPerShare,
+                           bankName:bank,
+                           ifscCode:ifsc,
+                           dividendAccountNo:divacno,
+                           cutoffDate:cutoffdate,
+                           paymentDate:paymentdate,
+                           action: (Number($("#dividend_gid").val()) === 0 ? "I" : "U"),
+                           user:"@userName"
+                }
+                 $.ajax({
+                       type: "Post",
+                       url: '@Url.Action("IudDividend", "DividendSetup")',
+                       data: JSON.stringify(mymodel),
+                       dataType: "json",
+                       contentType: 'application/json; charset=utf-8',
+                       success: function (response) {                        
+                        var res = JSON.parse(response._data);
+                            console.log("Parsed Result:", res);
+                                         if(res[0].out_msg.includes("Dividend setup")) {
+                                                   $.alert({
+                                                    title: 'STA Web',
+                                                    content: res[0].out_msg,
+                                                    type: 'red',
+                                                });
+                                            } else if (res.length > 0 && res[0].out_msg.includes("Dividend")) {
+                                            $.alert({
+                                                title: 'STA Web',
+                                                content: res[0].out_msg,
+                                                type: 'green',
+                                            });
+                                            setTimeout(() => {
+                                                window.location.href = "../DividendSetup/DividendSetup";
+                                            }, 3000);
+                                        }
+                       }                
+           });
+    }
+}
+
+    function convertToHtmlDate(dateStr) {
+        if (!dateStr) return "";
+
+        var parts = dateStr.split("-"); // ["30","01","2026"]
+        return parts[2] + "-" + parts[1] + "-" + parts[0];
+    }
+
+function editGrid(e) {
+        $('#listSection').hide();
+        $('#NewSection').show();
+         var grid = $("#grid").data("kendoGrid");
+         var row = $(e).closest("tr");       
+        var rowData = grid.dataItem(row);
+        console.log("Editing Row:", rowData);
+        loadCompany(rowData.company_name);
+        $("#isin").val(rowData.isin);
+        $("#dividend_gid").val(rowData.dividend_gid);
+        $("#dyear").val(rowData.dividend_year);
+        $("#divdtype").val(rowData.dividend_type);
+        $("#remarks").val(rowData.remarks);
+        $("#drate").val(rowData.dividend_rate);
+        $("#faceValue").val(rowData.face_value);
+        $("#dividendPerShare").val(rowData.dividend_per_share);
+        $("#bank").val(rowData.bank_name);
+        $("#ifsc").val(rowData.ifsc_code);
+        $("#divacno").val(rowData.dividend_account_no);
+        $("#cutoffdate").val(convertToHtmlDate(rowData.dividend_cutoff_date));
+        $("#paymentdate").val(convertToHtmlDate(rowData.dividend_payment_date));    
+ }
+
+ function deleteGrid(e){       
+        var grid = $("#grid").data("kendoGrid");
+        var row = $(e).closest("tr");
+        var rowData = grid.dataItem(row);
+        console.log("Editing Row:", rowData);
+        $("#dividend_gid").val(rowData.dividend_gid);
+        var divgid = $("#dividend_gid").val();
+        $.confirm({
+                icon: 'fa fa-warning',
+                    title: 'STA',
+                    autoClose: 'cancel|10000',
+                    theme: 'blue',
+                    animationSpeed: 700,
+                    content: 'Are you sure do you want to delete this record!',
+                    type: 'orange',
+                    buttons: {
+                                confirm: function () {
+                                         var mymodel = {
+                                               dividendgid:divgid,
+                                               action: "D"                                           
+                                        }
+                                            $.ajax({
+                                               type: "Post",
+                                               url: '@Url.Action("IudDividend", "DividendSetup")',
+                                               data: JSON.stringify(mymodel),
+                                               dataType: "json",
+                                               contentType: 'application/json; charset=utf-8',
+                                               success: function (response) {
+                                                var res = JSON.parse(response._data);
+                                                    console.log("Parsed Result:", res);
+                                                                    if (res.length > 0 && res[0].out_msg.includes("Dividend")) {
+                                                                    $.alert({
+                                                                        title: 'STA Web',
+                                                                        content: res[0].out_msg,
+                                                                        type: 'green',
+                                                                    });
+                                                                    setTimeout(() => {
+                                                                        window.location.href = "../DividendSetup/DividendSetup";
+                                                                    }, 3000);
+                                                                }
+                                               }
+                                   });
+
+                                },
+                                    cancel: function () {
+                                        $.alert({
+                                            icon: 'fa fa-success',
+                                            title: 'STA',
+                                            theme: 'dark',
+                                            content: 'Delete Canceled.!',
+                                            type: 'blue',
+                                            animationSpeed: 700,
+                                        });
+                                    },
+                    }
+        });
+ }
+
+</script>
