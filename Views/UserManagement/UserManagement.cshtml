@@ -134,6 +134,25 @@
                 color: #6c757d;
             }
     </style>
+    <style>
+        #passwordRequirements {
+            line-height: 20px;
+        }
+
+            #passwordRequirements .req-icon {
+                display: inline-block;
+                width: 18px;
+                font-weight: bold;
+            }
+
+            #passwordRequirements .req-valid {
+                color: green;
+            }
+
+            #passwordRequirements .req-invalid {
+                color: #dc3545;
+            }
+    </style>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini fixed">
@@ -194,17 +213,48 @@
                                     Password&nbsp;<span style="font-size:12px;color:red;font-weight:bold;">*</span>
                                 </label>
 
-                                <input type="password" id="userpwd" value="" class="form-control" autocomplete="new-password" name="new-password-field" />
-
+                                @* <input type="password" id="userpwd" value="" class="form-control" autocomplete="new-password" name="new-password-field" />
                                 <i class="fa fa-eye" id="eyeIcon"></i>
+                                <span id="queryErrorpwd" style="color:red;font-size:12px;"></span> *@
 
+                                <input type="password" id="userpwd" value="" class="form-control" autocomplete="new-password" name="new-password-field" />
+                                <i class="fa fa-eye" id="eyeIcon"></i>
                                 <span id="queryErrorpwd" style="color:red;font-size:12px;"></span>
+
+                                <div id="passwordRequirements" style="font-size:12px; margin-top:5px;">
+
+                                    <div id="reqLength">
+                                        <span class="req-icon">○</span>
+                                        <span class="req-text"></span>
+                                    </div>
+
+                                    <div id="reqUppercase">
+                                        <span class="req-icon">○</span>
+                                        <span class="req-text">One uppercase letter</span>
+                                    </div>
+
+                                    <div id="reqLowercase">
+                                        <span class="req-icon">○</span>
+                                        <span class="req-text">One lowercase letter</span>
+                                    </div>
+
+                                    <div id="reqNumber">
+                                        <span class="req-icon">○</span>
+                                        <span class="req-text">One number</span>
+                                    </div>
+
+                                    <div id="reqSpecial">
+                                        <span class="req-icon">○</span>
+                                        <span class="req-text">One special character</span>
+                                    </div>
+
+                                </div>
                             
                             </div>
                             <div class="col-sm-1">
                                 <div style="width:88px;">
                                     <label class="form-label" for="expiredDays">
-                                        ExpiredDays;<span style="font-size:12px;color:red;font-weight:bold;">*</span>
+                                        ExpiredDays <span style="font-size:12px;color:red;font-weight:bold;">*</span>
                                     </label>
 
                                     <input type="number"
@@ -216,7 +266,7 @@
                                 <span id="queryErrordays" style="color:red;font-size:12px;"></span>
                             </div>
                             
-                            <div class="col-sm-1">
+                            <div class="col-sm-1" style="display:none" id="lock_status">
                                 <label class="form-label" for="status">
                                     Lock Status
                                 </label>
@@ -313,8 +363,12 @@
        var requireLowercase = '@(Context.Session.GetString("require_lowercase") ?? "N")';
        var requireNumber = '@(Context.Session.GetString("require_number") ?? "N")';
        var requireSpecialChar = '@(Context.Session.GetString("require_special_char") ?? "N")';
+
+       var passwordConfig = {};
     $( document ).ready(function() 
     {
+        getPwdConfigValues();
+
         var label = document.getElementById("lockLabel");
         label.innerText = "Unlocked";
         $('#navhead').text('User Management');
@@ -461,60 +515,257 @@
         $("#userpwd").on("input", function () {
             validatePassword();
         });
-    });    
+    });
 
-    function validatePassword() {
-        var userpwd = document.getElementById("userpwd").value.trim();
-        var missingRules = [];
+    function setRequirement(selector, isValid) {
 
-        if (userpwd != "" && requireUppercase === "Y" && !/[A-Z]/.test(userpwd))
-            missingRules.push("A-Z");
+        var element = $(selector);
 
-        if (userpwd != "" && requireLowercase === "Y" && !/[a-z]/.test(userpwd))
-            missingRules.push("a-z");
+        if (isValid) {
 
-        if (userpwd != "" && requireNumber === "Y" && !/[0-9]/.test(userpwd))
-            missingRules.push("0-9");
+            element.removeClass("req-invalid");
+            element.addClass("req-valid");
 
-        if (userpwd != "" && requireSpecialChar === "Y" && !/[^A-Za-z0-9]/.test(userpwd))
-            missingRules.push("special character");
+            element.find(".req-icon").text("✓");
 
-        // Password empty
-        if (userpwd === "") {
-            queryErrorpwd.textContent =
-                "Use " + minPwdLength + "-" + maxPwdLength +
-                " characters with " + rules.join(", ") + ".";
+        } else {
 
-            return false;
+            element.removeClass("req-valid");
+            element.addClass("req-invalid");
+
+            element.find(".req-icon").text("○");
         }
+    }
 
-        var message = "";
+    function resetPasswordRequirements() {
+
+        $("#reqLength").removeClass("req-valid req-invalid");
+        $("#reqLength .req-icon").text("○");
+
+        $("#reqUppercase").removeClass("req-valid req-invalid");
+        $("#reqUppercase .req-icon").text("○");
+
+        $("#reqLowercase").removeClass("req-valid req-invalid");
+        $("#reqLowercase .req-icon").text("○");
+
+        $("#reqNumber").removeClass("req-valid req-invalid");
+        $("#reqNumber .req-icon").text("○");
+
+        $("#reqSpecial").removeClass("req-valid req-invalid");
+        $("#reqSpecial .req-icon").text("○");
+    }
+
+    function getPwdConfigValues() {
+        debugger
+        $.ajax({
+            url: '@Url.Action("GetPwdConfigValues", "UserManagement")',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+
+                console.log("Password Config Response:", response);
+
+                if (response && response.success && response.data) {
+
+                    passwordConfig = response.data;
+                    loadPasswordRequirements();
+                }
+            },
+            error: function (xhr, status, error) {
+
+                console.log("Error:", error);
+
+                kendo.alert("Unable to load password configuration.");
+            }
+        });
+    }
+
+    function loadPasswordRequirements() {
+
+        var minLength = parseInt(passwordConfig.password_min_len);
+        var maxLength = parseInt(passwordConfig.password_max_len);
 
         // Length
-        if (userpwd.length < minPwdLength ||
-            userpwd.length > maxPwdLength) {
+        $("#reqLength .req-text").text(
+            minLength + "-" + maxLength + " characters"
+        );
 
-            message = "Use " + minPwdLength + "-" +
-                      maxPwdLength + " characters";
+
+        // Uppercase
+        if (passwordConfig.pwd_require_uppercase === "Y") {
+            $("#reqUppercase").show();
+        }
+        else {
+            $("#reqUppercase").hide();
         }
 
-        // Missing requirements
-        if (missingRules.length > 0) {
-            if (message !== "")
-                message += " with ";
-            else
-                message = "Include ";
-            message += missingRules.join(", ");
+
+        // Lowercase
+        if (passwordConfig.pwd_require_lowercase === "Y") {
+            $("#reqLowercase").show();
+        }
+        else {
+            $("#reqLowercase").hide();
         }
 
-        if (message !== "") {
-            queryErrorpwd.textContent = message + ".";
+
+        // Number
+        if (passwordConfig.pwd_require_number === "Y") {
+            $("#reqNumber").show();
+        }
+        else {
+            $("#reqNumber").hide();
+        }
+
+
+        // Special character
+        if (passwordConfig.pwd_require_special_char === "Y") {
+            $("#reqSpecial").show();
+        }
+        else {
+            $("#reqSpecial").hide();
+        }
+    }
+
+    // function validatePassword() {
+    //     debugger
+    //     var userpwd = document.getElementById("userpwd").value.trim();
+    //     var missingRules = [];
+
+    //     if (userpwd != "" && passwordConfig.pwd_require_uppercase === "Y" && !/[A-Z]/.test(userpwd))
+    //         missingRules.push("A-Z");
+
+    //     if (userpwd != "" && passwordConfig.pwd_require_lowercase === "Y" && !/[a-z]/.test(userpwd))
+    //         missingRules.push("a-z");
+
+    //     if (userpwd != "" && passwordConfig.pwd_require_number === "Y" && !/[0-9]/.test(userpwd))
+    //         missingRules.push("0-9");
+
+    //     if (userpwd != "" && passwordConfig.pwd_require_special_char === "Y" && !/[^A-Za-z0-9]/.test(userpwd))
+    //         missingRules.push("special character");
+
+    //     // Password empty
+    //     if (userpwd === "") {
+    //         queryErrorpwd.textContent =
+    //             "Use " + passwordConfig.password_min_len + "-" + passwordConfig.password_max_len +
+    //             " characters with " + rules.join(", ") + ".";
+
+    //         return false;
+    //     }
+
+    //     var message = "";
+
+    //     // Length
+    //     if (userpwd.length < passwordConfig.password_min_len  ||
+    //         userpwd.length > passwordConfig.password_max_len) {
+
+    //         message = "Use " + passwordConfig.password_min_len  + "-" +
+    //                   passwordConfig.password_max_len + " characters";
+    //     }
+
+    //     // Missing requirements
+    //     if (missingRules.length > 0) {
+    //         if (message !== "")
+    //             message += " with ";
+    //         else
+    //             message = "Include ";
+    //         message += missingRules.join(", ");
+    //     }
+
+    //     if (message !== "") {
+    //         queryErrorpwd.textContent = message + ".";
+    //         return false;
+    //     }
+
+    //     // Everything is valid
+    //     queryErrorpwd.textContent = "";
+    //     return true;
+    // }
+
+    function validatePassword() {
+
+        var userpwd = $("#userpwd").val().trim();
+
+        var minLength = parseInt(passwordConfig.password_min_len);
+        var maxLength = parseInt(passwordConfig.password_max_len);
+
+        // Empty password
+        if (userpwd === "") {
+            queryErrorpwd.textContent = "Enter Password";
+            resetPasswordRequirements();
             return false;
+        }else if(userpwd != ""){
+            queryErrorpwd.textContent = "";
         }
 
-        // Everything is valid
-        queryErrorpwd.textContent = "";
-        return true;
+        // Length
+        var lengthValid =
+            userpwd.length >= minLength &&
+            userpwd.length <= maxLength;
+
+        setRequirement("#reqLength", lengthValid);
+
+
+        // Uppercase
+        if (passwordConfig.pwd_require_uppercase === "Y") {
+
+            var uppercaseValid = /[A-Z]/.test(userpwd);
+
+            setRequirement("#reqUppercase", uppercaseValid);
+        }
+
+
+        // Lowercase
+        if (passwordConfig.pwd_require_lowercase === "Y") {
+
+            var lowercaseValid = /[a-z]/.test(userpwd);
+
+            setRequirement("#reqLowercase", lowercaseValid);
+        }
+
+
+        // Number
+        if (passwordConfig.pwd_require_number === "Y") {
+
+            var numberValid = /[0-9]/.test(userpwd);
+
+            setRequirement("#reqNumber", numberValid);
+        }
+
+
+        // Special character
+        if (passwordConfig.pwd_require_special_char === "Y") {
+
+            var specialValid = /[^A-Za-z0-9]/.test(userpwd);
+
+            setRequirement("#reqSpecial", specialValid);
+        }
+
+
+        // Check whether all required rules are satisfied
+        var isValid = lengthValid;
+
+        if (passwordConfig.pwd_require_uppercase === "Y" &&
+            !/[A-Z]/.test(userpwd)) {
+            isValid = false;
+        }
+
+        if (passwordConfig.pwd_require_lowercase === "Y" &&
+            !/[a-z]/.test(userpwd)) {
+            isValid = false;
+        }
+
+        if (passwordConfig.pwd_require_number === "Y" &&
+            !/[0-9]/.test(userpwd)) {
+            isValid = false;
+        }
+
+        if (passwordConfig.pwd_require_special_char === "Y" &&
+            !/[^A-Za-z0-9]/.test(userpwd)) {
+            isValid = false;
+        }
+
+        return isValid;
     }
  
      function loadrole() {
@@ -689,6 +940,7 @@
             $('#btnSubmit').hide();
             $('#btnUpdate').show();
             $('#divstatus').show();
+            $('#lock_status').show();
           //  $('#userrole_mapping').show();
             $("#btnrolemap").prop("disabled", false);
             queryErrorucode.textContent = "";
@@ -787,35 +1039,35 @@
                     var requireLowercase = '@(Context.Session.GetString("require_lowercase") ?? "N")';
                     var requireNumber = '@(Context.Session.GetString("require_number") ?? "N")';
                     var requireSpecialChar = '@(Context.Session.GetString("require_special_char") ?? "N")';
-                    if (userpwd.length < minPwdLength) {
-                        queryErrorpwd.textContent ="Password must be at least " + minPwdLength + " characters.";
-                        isValid = false;
-                    }
+                    // if (userpwd.length < minPwdLength) {
+                    //     queryErrorpwd.textContent ="Password must be at least " + minPwdLength + " characters.";
+                    //     isValid = false;
+                    // }
 
-                    if (userpwd.length > maxPwdLength) {
-                        queryErrorpwd.textContent ="Password must not exceed " + maxPwdLength + " characters.";
-                        isValid = false;
-                    }
+                    // if (userpwd.length > maxPwdLength) {
+                    //     queryErrorpwd.textContent ="Password must not exceed " + maxPwdLength + " characters.";
+                    //     isValid = false;
+                    // }
 
-                    if (requireUppercase === "Y" && !/[A-Z]/.test(userpwd)) {
-                        queryErrorpwd.textContent ="Password must contain at least one uppercase letter.";
-                        isValid = false;
-                    }
+                    // if (requireUppercase === "Y" && !/[A-Z]/.test(userpwd)) {
+                    //     queryErrorpwd.textContent ="Password must contain at least one uppercase letter.";
+                    //     isValid = false;
+                    // }
 
-                    if (requireLowercase === "Y" && !/[a-z]/.test(userpwd)) {
-                        queryErrorpwd.textContent ="Password must contain at least one lowercase letter.";
-                        isValid = false;
-                    }
+                    // if (requireLowercase === "Y" && !/[a-z]/.test(userpwd)) {
+                    //     queryErrorpwd.textContent ="Password must contain at least one lowercase letter.";
+                    //     isValid = false;
+                    // }
 
-                    if (requireNumber === "Y" && !/[0-9]/.test(userpwd)) {
-                        queryErrorpwd.textContent ="Password must contain at least one number.";
-                        isValid = false;
-                    }
+                    // if (requireNumber === "Y" && !/[0-9]/.test(userpwd)) {
+                    //     queryErrorpwd.textContent ="Password must contain at least one number.";
+                    //     isValid = false;
+                    // }
 
-                    if (requireSpecialChar === "Y" && !/[^A-Za-z0-9]/.test(userpwd)) {
-                        queryErrorpwd.textContent ="Password must contain at least one special character.";
-                        isValid = false;
-                    }
+                    // if (requireSpecialChar === "Y" && !/[^A-Za-z0-9]/.test(userpwd)) {
+                    //     queryErrorpwd.textContent ="Password must contain at least one special character.";
+                    //     isValid = false;
+                    // }
                     if (!validateMobileField()) {
                        isValid = false;
                         e.preventDefault(); // Stop form submit
