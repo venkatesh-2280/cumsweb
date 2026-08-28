@@ -548,7 +548,73 @@ namespace STAWeb.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetPwdConfigValues()
+        {
+            PasswordConfigModel querylist = new PasswordConfigModel();
 
+            string urlstring = _configuration
+                .GetSection("Appsettings")["apiurl"] + "/GetPwdConfigValues";
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.Timeout = Timeout.InfiniteTimeSpan;
+
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json")
+                    );
+
+                    APIcookieName = "APItoken-" +
+                        User.FindFirst(ClaimTypes.NameIdentifier)?.Value.ToString() +
+                        "_" +
+                        User.FindFirst(ClaimTypes.Role)?.Value.ToString();
+
+                    string token = Request.Cookies[APIcookieName];
+
+                    client.DefaultRequestHeaders.Authorization =
+                        new AuthenticationHeaderValue("Bearer", token);
+
+                    var response = await client.GetAsync(urlstring);
+
+                    if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        Response.Cookies.Delete(APIcookieName);
+
+                        return Json(new
+                        {
+                            success = false,
+                            authExpired = true
+                        });
+                    }
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var post_data = await response.Content.ReadAsStringAsync();
+
+                        Console.WriteLine(post_data);
+
+                        querylist = JsonConvert.DeserializeObject<PasswordConfigModel>(post_data);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex + " Server error"
+                });
+            }
+
+            return Json(new
+            {
+                success = true,
+                data = querylist
+            });
+        }
 
     }
 }
